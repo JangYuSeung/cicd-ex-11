@@ -65,6 +65,9 @@ jobs:
             "export ECR_REGISTRY=abcd",
             "export ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}",
             "export IMAGE_TAG=${{ github.sha }}",
+            "echo \"${ IMAGE_TAG }\" > /home/ec2-user/env.txt",
+            "echo \"${ ECR_REGISTRY }\" > /home/ec2-user/env.txt",
+            "echo \"${ ECR_REPOSITORY }\" > /home/ec2-user/env.txt",
 
             "docker stop nginx-container || true",
             "docker rm nginx-container || true",
