@@ -65,9 +65,7 @@ jobs:
             "export ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}",
             "export ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}",
             "export IMAGE_TAG=${{ github.sha }}",
-            "echo ${ IMAGE_TAG } > /home/ec2-user/env.txt",
-            "echo ${ ECR_REGISTRY } > /home/ec2-user/env.txt",
-            "echo ${ ECR_REPOSITORY } > /home/ec2-user/env.txt",
+
             "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}",
             
             "docker stop nginx-container || true",
