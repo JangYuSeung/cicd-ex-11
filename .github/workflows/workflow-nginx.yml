@@ -62,15 +62,21 @@ jobs:
             "aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/docker-compose.yaml /home/ec2-user/docker-compose.yaml",
             "aws s3 sync s3://${{ secrets.S3_BUCKET_NAME }}/nginx/html/ /home/ec2-user/nginx/html/ --delete",
             
+            "export ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}",
+            "export ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}",
+            "export IMAGE_TAG=${{ github.sha }}",
+            "echo ${ IMAGE_TAG } > /home/ec2-user/env.txt",
+            "echo ${ ECR_REGISTRY } > /home/ec2-user/env.txt",
+            "echo ${ ECR_REPOSITORY } > /home/ec2-user/env.txt",
             "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}",
-
+            
             "docker stop nginx-container || true",
             "docker rm nginx-container || true",
             "docker rmi $(docker images -q)",
 
             "cd /home/ec2-user",
-            "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }} ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }} IMAGE_TAG=${{ github.sha }} docker compose pull",
-            "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }} ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }} IMAGE_TAG=${{ github.sha }} docker compose up -d --remove-orphans",
+            "docker compose pull",
+            "docker compose up -d --remove-orphans",
 
             "docker image prune -f"
 
