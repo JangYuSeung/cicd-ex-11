@@ -73,8 +73,6 @@ jobs:
             "cd /home/ec2-user",
             "docker compose pull",
             "docker compose up -d --remove-orphans",
-            "rm -f /home/ec2-user/docker-compose.yaml",
-            "rm -f /home/ec2-user/nginx/Dockerfile",
 
             "docker image prune -f"
 
