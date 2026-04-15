@@ -12,11 +12,11 @@ services:
       - /home/ec2-user/nginx/html:/usr/share/nginx/html
       - /home/ec2-user/nginx/logs:/var/log/nginx
     restart: always
-#     networks:
-#       - public-subnet
-#         aliases:
-#           - nginx-svc
+    networks:
+      public-subnet:
+        aliases:
+          - nginx-svc
 
-# networks:
-#   public-subnet: # 지금은 사용하지 않지만, 나중에 fastapi를 위한 nginx의 default.conf의 프록시 설정에서 별칭 사용해주려고
-#     driver: bridge
+networks:
+  public-subnet: # 지금은 사용하지 않지만, 나중에 fastapi를 위한 nginx의 default.conf의 프록시 설정에서 별칭 사용해주려고
+    driver: bridge
