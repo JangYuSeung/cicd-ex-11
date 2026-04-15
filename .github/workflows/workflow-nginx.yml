@@ -70,7 +70,6 @@ jobs:
             
             "docker stop nginx-container || true",
             "docker rm nginx-container || true",
-            "docker rmi $(docker images -q)",
 
             "cd /home/ec2-user",
             "docker compose pull",

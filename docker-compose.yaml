@@ -14,8 +14,8 @@ services:
     restart: always
     networks:
       - public-subnet
-    aliases:
-      - nginx-svc
+        aliases:
+          - nginx-svc
 
 networks:
   public-subnet: # 지금은 사용하지 않지만, 나중에 fastapi를 위한 nginx의 default.conf의 프록시 설정에서 별칭 사용해주려고
