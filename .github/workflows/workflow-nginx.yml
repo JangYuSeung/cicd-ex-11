@@ -62,7 +62,7 @@ jobs:
             "aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/docker-compose.yaml /home/ec2-user/docker-compose.yaml",
             "aws s3 sync s3://${{ secrets.S3_BUCKET_NAME }}/nginx/html/ /home/ec2-user/nginx/html/ --delete",
             
-            "export ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}",
+            "export ECR_REGISTRY=abcd",
             "export ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}",
             "export IMAGE_TAG=${{ github.sha }}",
 
